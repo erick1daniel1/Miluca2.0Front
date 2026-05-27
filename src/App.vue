@@ -26,7 +26,7 @@ const balance = ref({
 
 const getTransactions = async () => {
   try {
-    const res = await axios.get('http://localhost:8000/finances/transactions/')
+    const res = await axios.get(`${import.meta.env.VITE_API_URL}/finances/transactions/`)
     console.log('transactions:', res.data)  
     transactions.value = res.data
   } catch (error) {
@@ -36,7 +36,7 @@ const getTransactions = async () => {
 
 const getBalance = async () => {
   try {
-    const res = await axios.get('http://localhost:8000/finances/balance/')
+    const res = await axios.get(`${import.meta.env.VITE_API_URL}/finances/balance/`)
     balance.value = res.data
   } catch (error) {
     console.log(error)
@@ -44,7 +44,7 @@ const getBalance = async () => {
 }
 
 const loadCategories = async () => {
-  const res = await fetch('http://localhost:8000/finances/categories/')
+  const res = await fetch(`${import.meta.env.VITE_API_URL}/finances/categories/`)
   categories.value = await res.json()
 }
 
@@ -55,7 +55,7 @@ onMounted(() => {
 })
 
 const save = async (formData: TransactionsForm) => {
-  const response = await fetch('http://localhost:8000/finances/transactions/', {
+  const response = await fetch(`${import.meta.env.VITE_API_URL}/finances/transactions/`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ ...formData, user: 1 })
